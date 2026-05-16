@@ -981,6 +981,18 @@
     }, { threshold: 0.1 });
     reveals.forEach(r => observer.observe(r));
 
+    // Hamburger menu
+    function toggleMenu() {
+      document.getElementById('hamburger').classList.toggle('open');
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+    document.querySelectorAll('.nav-links a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        document.getElementById('hamburger').classList.remove('open');
+        document.getElementById('navLinks').classList.remove('open');
+      });
+    });
+
     // Toast helper
     function showToast(msg) {
       const t = document.getElementById('toast');
