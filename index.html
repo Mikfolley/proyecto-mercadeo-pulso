@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pulso - Agencia de Marketing Digital</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #7C3AED;
+      --purple-light: #A855F7;
+      --blue: #2563EB;
+      --blue-light: #3B82F6;
+      --white: #FFFFFF;
+      --gray-light: #F3F4FF;
+      --gray: #6B7280;
+      --dark: #0D0D1A;
+      --gradient: linear-gradient(135deg, #7C3AED 0%, #2563EB 100%);
+      --gradient-hover: linear-gradient(135deg, #6D28D9 0%, #1D4ED8 100%);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ===================== NAV ===================== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      background: rgba(13, 13, 26, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(124, 58, 237, 0.3);
+      padding: 0 5%;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo img { height: 44px; object-fit: contain; }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--purple-light); }
+
+    .nav-cta {
+      background: var(--gradient);
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: var(--gradient-hover); }
+
+    /* ===================== HERO ===================== */
+    .hero {
+      min-height: 100vh;
+      background: var(--dark);
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(124,58,237,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(37,99,235,0.2) 0%, transparent 50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 100px 5% 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .hero-particles span {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(168, 85, 247, 0.5);
+      animation: float-particle linear infinite;
+    }
+    @keyframes float-particle {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-20px) scale(1); opacity: 0; }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(124,58,237,0.2);
+      border: 1px solid rgba(124,58,237,0.5);
+      color: var(--purple-light);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      animation: fade-up 0.8s ease both;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      animation: fade-up 0.8s 0.15s ease both;
+    }
+
+    .hero h1 span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,0.65);
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+      animation: fade-up 0.8s 0.3s ease both;
+    }
+
+    /* ===================== SUBSCRIPTION BOX ===================== */
+    .subs-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(124,58,237,0.4);
+      border-radius: 20px;
+      padding: 40px 48px;
+      max-width: 540px;
+      width: 100%;
+      backdrop-filter: blur(10px);
+      animation: fade-up 0.8s 0.45s ease both;
+      position: relative;
+      z-index: 2;
+    }
+
+    .subs-box::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 21px;
+      background: var(--gradient);
+      z-index: -1;
+      opacity: 0.3;
+    }
+
+    .subs-box .subs-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+
+    .subs-box h2 {
+      color: #fff;
+      font-size: 1.55rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .subs-box p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.92rem;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .subs-free-badge {
+      display: inline-block;
+      background: var(--gradient);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+
+    .subs-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .subs-form input[type="text"],
+    .subs-form input[type="email"] {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(124,58,237,0.4);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      width: 100%;
+    }
+    .subs-form input::placeholder { color: rgba(255,255,255,0.35); }
+    .subs-form input:focus {
+      border-color: var(--purple-light);
+      background: rgba(124,58,237,0.12);
+    }
+
+    .subs-btn {
+      background: var(--gradient);
+      border: none;
+      border-radius: 12px;
+      padding: 15px 24px;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.5px;
+    }
+    .subs-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(124,58,237,0.5);
+    }
+
+    .subs-privacy {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      margin-top: 10px;
+    }
+
+    .subs-benefits {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .subs-benefit {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.65);
+      font-size: 0.8rem;
+    }
+    .subs-benefit::before {
+      content: '✓';
+      color: var(--purple-light);
+      font-weight: 700;
+    }
+
+    /* ===================== STATS ===================== */
+    .stats-bar {
+      background: var(--dark);
+      border-top: 1px solid rgba(124,58,237,0.2);
+      padding: 40px 5%;
+      display: flex;
+      justify-content: center;
+      gap: clamp(32px, 6vw, 80px);
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+    .stat-num {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+
+    /* ===================== SERVICES PREVIEW ===================== */
+    .section {
+      padding: 80px 5%;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .section-tag {
+      display: inline-block;
+      background: rgba(124,58,237,0.1);
+      color: var(--purple);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(124,58,237,0.3);
+    }
+    .section-header h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-header h2 span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section-header p {
+      color: var(--gray);
+      font-size: 1rem;
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: var(--gray-light);
+      border-radius: 18px;
+      padding: 32px 28px;
+      border: 1px solid rgba(124,58,237,0.1);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gradient);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+      transform-origin: left;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(124,58,237,0.15);
+      border-color: rgba(124,58,237,0.3);
+    }
+
+    .service-icon {
+      width: 54px;
+      height: 54px;
+      background: var(--gradient);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .service-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .service-card p {
+      color: var(--gray);
+      font-size: 0.88rem;
+      line-height: 1.65;
+    }
+
+    /* ===================== WHY US ===================== */
+    .why-section {
+      background: var(--dark);
+      padding: 80px 5%;
+    }
+
+    .why-section .section-header h2 { color: #fff; }
+    .why-section .section-header p { color: rgba(255,255,255,0.55); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .why-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(124,58,237,0.25);
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: center;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .why-card:hover {
+      background: rgba(124,58,237,0.1);
+      border-color: rgba(124,58,237,0.5);
+    }
+    .why-emoji { font-size: 2.2rem; margin-bottom: 14px; }
+    .why-card h3 { color: #fff; font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .why-card p { color: rgba(255,255,255,0.5); font-size: 0.85rem; line-height: 1.6; }
+
+    /* ===================== CTA SECTION ===================== */
+    .cta-section {
+      padding: 80px 5%;
+      text-align: center;
+      background: var(--gray-light);
+    }
+
+    .cta-box {
+      background: var(--gradient);
+      border-radius: 24px;
+      padding: 60px 40px;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+    }
+    .cta-box h2 {
+      color: #fff;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .cta-box p {
+      color: rgba(255,255,255,0.8);
+      font-size: 1.05rem;
+      margin-bottom: 32px;
+      line-height: 1.65;
+      position: relative;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: #fff;
+      color: var(--purple);
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+    }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      background: var(--dark);
+      padding: 48px 5% 28px;
+      border-top: 1px solid rgba(124,58,237,0.2);
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+    .footer-brand img { height: 40px; margin-bottom: 12px; }
+    .footer-brand p {
+      color: rgba(255,255,255,0.45);
+      font-size: 0.85rem;
+      max-width: 240px;
+      line-height: 1.6;
+    }
+    .footer-links h4 {
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .footer-links ul { list-style: none; }
+    .footer-links li { margin-bottom: 10px; }
+    .footer-links a {
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--purple-light); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-bottom p {
+      color: rgba(255,255,255,0.3);
+      font-size: 0.8rem;
+    }
+    .footer-socials {
+      display: flex;
+      gap: 12px;
+    }
+    .footer-socials a {
+      width: 36px;
+      height: 36px;
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .footer-socials a:hover {
+      background: var(--gradient);
+      border-color: transparent;
+      color: #fff;
+    }
+
+    /* ===================== ANIMATIONS ===================== */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===================== TOAST ===================== */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--gradient);
+      color: #fff;
+      padding: 16px 24px;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      box-shadow: 0 8px 30px rgba(124,58,237,0.4);
+      z-index: 9999;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: transform 0.4s, opacity 0.4s;
+      max-width: 320px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ===================== HAMBURGER ===================== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      z-index: 1001;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 70px; left: 0; right: 0;
+        background: rgba(13,13,26,0.98);
+        backdrop-filter: blur(12px);
+        padding: 24px 5% 32px;
+        gap: 4px;
+        border-bottom: 1px solid rgba(124,58,237,0.3);
+        transform: translateY(-110%);
+        transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+        z-index: 998;
+      }
+      .nav-links.open { transform: translateY(0); }
+      .nav-links li a {
+        display: block;
+        padding: 14px 0;
+        font-size: 1.05rem;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+      }
+      .nav-cta { display: inline-block; margin-top: 10px; text-align: center; }
+      .subs-box { padding: 28px 20px; }
+      .footer-top { flex-direction: column; }
+      .stats-bar { gap: 24px; padding: 32px 5%; }
+      .services-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .cta-box { padding: 40px 24px; }
+      .float-badge { bottom: 16px; left: 12px; font-size: 0.75rem; padding: 9px 14px; }
+    }
+    @media (max-width: 480px) {
+      .why-grid { grid-template-columns: 1fr; }
+      .subs-benefits { flex-direction: column; align-items: center; }
+    }
+
+    /* ===================== FLOATING BADGE ===================== */
+    .float-badge {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      background: var(--dark);
+      border: 1px solid rgba(124,58,237,0.5);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .float-badge:hover { background: var(--purple); }
+    .float-badge span { 
+      width: 8px; height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: pulse-green 1.5s infinite;
+    }
+    @keyframes pulse-green {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.3); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <img src="imagenes/logo.jpeg" alt="Pulso Agencia de Marketing" />
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="servicios.html">Servicios</a></li>
+      <li><a href="servicios.html" class="nav-cta">Cotizar ahora</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-particles" id="particles"></div>
+
+    <div class="hero-badge">⚡ Agencia de Marketing Digital</div>
+
+    <h1>
+      Lleva tu marca al<br />
+      <span>siguiente nivel</span>
+    </h1>
+
+    <p class="hero-sub">
+      Estrategias digitales que generan resultados reales. Impulsamos tu negocio con creatividad, datos y pasión por el marketing.
+    </p>
+
+    <!-- SUBSCRIPTION BOX -->
+    <div class="subs-box">
+      <div class="subs-icon">🎯</div>
+      <span class="subs-free-badge">✦ 100% Gratuito</span>
+      <h2>Recibe estrategias que venden</h2>
+      <p>Suscríbete y accede a contenido exclusivo: guías, tendencias y casos de éxito para hacer crecer tu negocio.</p>
+
+      <form class="subs-form" id="subsForm" onsubmit="handleSubscription(event)">
+        <input type="text" id="subsName" placeholder="Tu nombre" required />
+        <input type="email" id="subsEmail" placeholder="Tu correo electrónico" required />
+        <button type="submit" class="subs-btn">
+          ✦ Suscribirme gratis y ver contenido exclusivo
+        </button>
+        <p class="subs-privacy">🔒 Sin spam. Puedes cancelar cuando quieras.</p>
+      </form>
+
+      <div class="subs-benefits">
+        <span class="subs-benefit">Guías de marketing</span>
+        <span class="subs-benefit">Casos de éxito</span>
+        <span class="subs-benefit">Tips semanales</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-num">+50</div>
+      <div class="stat-label">Marcas impulsadas</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">+3</div>
+      <div class="stat-label">Años de experiencia</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">+200%</div>
+      <div class="stat-label">Crecimiento promedio</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">98%</div>
+      <div class="stat-label">Clientes satisfechos</div>
+    </div>
+  </div>
+
+  <!-- SERVICES PREVIEW -->
+  <section class="section" style="background: #fff;">
+    <div class="section-header reveal">
+      <div class="section-tag">Nuestros servicios</div>
+      <h2>Todo lo que tu marca <span>necesita</span></h2>
+      <p>Desde contenido visual hasta campañas publicitarias, tenemos la solución perfecta para cada etapa de tu negocio.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🎬</div>
+        <h3>Producción Audiovisual</h3>
+        <p>Videos profesionales que capturan la esencia de tu marca. Reels, spots, contenido para redes y más.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">📱</div>
+        <h3>Community Manager</h3>
+        <p>Gestión integral de tus redes sociales. Creamos contenido, respondemos mensajes y crecemos tu comunidad.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">📅</div>
+        <h3>Campañas Mensuales</h3>
+        <p>Planificación y ejecución de campañas digitales mes a mes con reportes detallados de resultados.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🚀</div>
+        <h3>Campañas Individuales</h3>
+        <p>Campañas puntuales para lanzamientos, eventos o temporadas. Máximo impacto en el momento justo.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🎁</div>
+        <h3>Bonos Extras</h3>
+        <p>Contenido adicional estratégico para acelerar tu crecimiento en momentos clave del año.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">💥</div>
+        <h3>Promo 2x1</h3>
+        <p>Obtén dos servicios por el precio de uno. La oferta especial para marcas que quieren crecer rápido.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY SECTION -->
+  <section class="why-section">
+    <div class="section-header reveal">
+      <div class="section-tag" style="color: var(--purple-light); border-color: rgba(168,85,247,0.4);">¿Por qué Pulso?</div>
+      <h2>Lo que nos hace <span>diferentes</span></h2>
+      <p>No somos una agencia más. Somos tu equipo de marketing con resultados comprobados en el mercado local.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-emoji">🎯</div>
+        <h3>Estrategia basada en datos</h3>
+        <p>Cada decisión está respaldada por métricas reales. Nada al azar.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-emoji">⚡</div>
+        <h3>Resultados rápidos</h3>
+        <p>Nuestros clientes ven resultados desde la primera semana de trabajo.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-emoji">🤝</div>
+        <h3>Atención personalizada</h3>
+        <p>Tu marca merece atención única. Diseñamos estrategias a tu medida.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-emoji">📊</div>
+        <h3>Reportes transparentes</h3>
+        <p>Sabes exactamente qué pasa con tu inversión. Reportes claros cada mes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="cta-section">
+    <div class="cta-box reveal">
+      <h2>¿Listo para aprender cómo hacemos crecer marcas?</h2>
+      <p>Antes de ser nuestro cliente, queremos darte valor. Accede a nuestro blog con guías, casos de éxito y estrategias gratuitas.</p>
+      <a href="blog.html" class="cta-btn" id="blogCta">Ver contenido educativo gratuito →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="imagenes/logo.jpeg" alt="Pulso" />
+        <p>Agencia de marketing digital con presencia en Pasto. Impulsamos marcas con creatividad y estrategia.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="blog.html">Blog Gratuito</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="servicios.html#equipo">Nuestro equipo</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="servicios.html">Producción Audiovisual</a></li>
+          <li><a href="servicios.html">Community Manager</a></li>
+          <li><a href="servicios.html">Campañas Digitales</a></li>
+          <li><a href="servicios.html">Planes Especiales</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="https://wa.me/573187532414">WhatsApp</a></li>
+          <li><a href="mailto:info@pulsomkt.com">info@pulsomkt.com</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Pulso Agencia de Marketing. Todos los derechos reservados.</p>
+      <div class="footer-socials">
+        <a href="#" title="Instagram">📸</a>
+        <a href="#" title="Facebook">📘</a>
+        <a href="#" title="WhatsApp">💬</a>
+        <a href="#" title="TikTok">🎵</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING BADGE -->
+  <a href="https://wa.me/573187532414" class="float-badge" target="_blank">
+    <span></span> Chatea con nosotros
+  </a>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // Partículas en el hero
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('span');
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (8 + Math.random() * 12) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      p.style.width = p.style.height = (2 + Math.random() * 5) + 'px';
+      container.appendChild(p);
+    }
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+
+    // Toast helper
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3500);
+    }
+
+    // Handle subscription
+    function handleSubscription(e) {
+      e.preventDefault();
+      const name = document.getElementById('subsName').value.trim();
+      const email = document.getElementById('subsEmail').value.trim();
+      if (!name || !email) return;
+
+      // Guardar en localStorage
+      localStorage.setItem('pulso_subscriber_name', name);
+      localStorage.setItem('pulso_subscriber_email', email);
+
+      showToast('¡Genial ' + name + '! Redirigiendo al contenido exclusivo…');
+      setTimeout(() => {
+        window.location.href = 'blog.html';
+      }, 1800);
+    }
+  </script>
+</body>
+</html>

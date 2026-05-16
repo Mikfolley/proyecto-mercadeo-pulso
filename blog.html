@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Gratuito – Pulso Agencia de Marketing</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #7C3AED;
+      --purple-light: #A855F7;
+      --blue: #2563EB;
+      --blue-light: #3B82F6;
+      --white: #FFFFFF;
+      --gray-light: #F3F4FF;
+      --gray: #6B7280;
+      --dark: #0D0D1A;
+      --gradient: linear-gradient(135deg, #7C3AED 0%, #2563EB 100%);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      background: rgba(13,13,26,0.93);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(124,58,237,0.3);
+      padding: 0 5%; height: 70px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo img { height: 44px; object-fit: contain; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--purple-light); }
+    .nav-links a.active { color: var(--purple-light); border-bottom: 2px solid var(--purple-light); padding-bottom: 2px; }
+    .nav-cta { background: var(--gradient); color: #fff !important; padding: 8px 20px; border-radius: 25px; font-weight: 600 !important; }
+
+    /* BLOG HERO */
+    .blog-hero {
+      min-height: 380px;
+      background: var(--dark);
+      background-image:
+        radial-gradient(ellipse at 70% 50%, rgba(37,99,235,0.2) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 30%, rgba(124,58,237,0.2) 0%, transparent 50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 110px 5% 60px;
+    }
+    .blog-hero .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.5);
+      color: var(--purple-light); padding: 7px 18px; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .blog-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 16px;
+    }
+    .blog-hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blog-hero p { color: rgba(255,255,255,0.6); font-size: 1.05rem; max-width: 560px; line-height: 1.7; }
+
+    /* WELCOME BANNER */
+    .welcome-banner {
+      background: var(--gradient);
+      padding: 18px 5%;
+      text-align: center;
+      display: none;
+    }
+    .welcome-banner p { color: #fff; font-size: 1rem; font-weight: 600; }
+    .welcome-banner span { opacity: 0.85; font-weight: 400; }
+
+    /* SECTION */
+    .section { padding: 72px 5%; }
+    .section-tag {
+      display: inline-block; background: rgba(124,58,237,0.1); color: var(--purple);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 50px; margin-bottom: 16px; border: 1px solid rgba(124,58,237,0.3);
+    }
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-header h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; color: var(--dark); margin-bottom: 14px; line-height: 1.2; }
+    .section-header h2 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .section-header p { color: var(--gray); font-size: 1rem; max-width: 540px; margin: 0 auto; line-height: 1.7; }
+
+    /* FEATURED ARTICLE */
+    .featured-article {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto 64px;
+      background: var(--gray-light);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+    .featured-visual {
+      background: var(--gradient);
+      min-height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .featured-visual::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.15);
+    }
+    .featured-visual span { position: relative; z-index: 1; }
+    .featured-content { padding: 40px 40px 40px 0; }
+    .featured-content .art-tag {
+      display: inline-block; background: rgba(124,58,237,0.12); color: var(--purple);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 20px; margin-bottom: 14px;
+    }
+    .featured-content h3 { font-size: 1.6rem; font-weight: 800; color: var(--dark); margin-bottom: 14px; line-height: 1.3; }
+    .featured-content p { color: var(--gray); font-size: 0.95rem; line-height: 1.75; margin-bottom: 24px; }
+    .read-more {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gradient); color: #fff; padding: 12px 24px;
+      border-radius: 50px; font-size: 0.9rem; font-weight: 600; text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; border: none;
+    }
+    .read-more:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.4); }
+
+    /* ARTICLES GRID */
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .article-card {
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(124,58,237,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .article-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(124,58,237,0.12);
+    }
+    .art-thumb {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+    }
+    .art-body { padding: 24px; }
+    .art-tag {
+      display: inline-block; font-size: 0.73rem; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 16px; margin-bottom: 12px;
+    }
+    .tag-purple { background: rgba(124,58,237,0.1); color: var(--purple); }
+    .tag-blue { background: rgba(37,99,235,0.1); color: var(--blue); }
+    .tag-green { background: rgba(16,185,129,0.1); color: #059669; }
+    .tag-orange { background: rgba(245,158,11,0.1); color: #D97706; }
+    .article-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 10px; line-height: 1.4; }
+    .article-card p { color: var(--gray); font-size: 0.87rem; line-height: 1.65; margin-bottom: 18px; }
+    .art-meta { display: flex; justify-content: space-between; align-items: center; }
+    .art-read { font-size: 0.78rem; color: var(--gray); }
+    .art-cta {
+      display: inline-flex; align-items: center; gap: 5px;
+      color: var(--purple); font-size: 0.85rem; font-weight: 600; text-decoration: none;
+      transition: gap 0.2s; cursor: pointer; background: none; border: none;
+    }
+    .art-cta:hover { gap: 10px; }
+
+    /* TIPS SECTION */
+    .tips-section { background: var(--dark); padding: 72px 5%; }
+    .tips-section .section-header h2 { color: #fff; }
+    .tips-section .section-header p { color: rgba(255,255,255,0.55); }
+    .tips-section .section-tag { color: var(--purple-light); border-color: rgba(168,85,247,0.4); background: rgba(168,85,247,0.1); }
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .tip-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 16px;
+      padding: 28px 22px;
+      text-align: center;
+      transition: background 0.3s, border-color 0.3s, transform 0.3s;
+    }
+    .tip-card:hover { background: rgba(124,58,237,0.1); border-color: rgba(124,58,237,0.5); transform: translateY(-4px); }
+    .tip-num {
+      width: 44px; height: 44px;
+      background: var(--gradient);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 800; color: #fff;
+      margin: 0 auto 16px;
+    }
+    .tip-card h4 { color: #fff; font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
+    .tip-card p { color: rgba(255,255,255,0.5); font-size: 0.83rem; line-height: 1.6; }
+
+    /* STATS SECTION */
+    .stats-section { padding: 64px 5%; background: var(--gray-light); text-align: center; }
+    .stats-section h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 12px; }
+    .stats-section h2 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stats-section p { color: var(--gray); max-width: 500px; margin: 0 auto 40px; font-size: 0.95rem; line-height: 1.7; }
+    .stats-row { display: flex; justify-content: center; gap: clamp(24px, 5vw, 64px); flex-wrap: wrap; }
+    .s-stat { text-align: center; }
+    .s-num { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .s-label { color: var(--gray); font-size: 0.85rem; margin-top: 4px; }
+
+    /* NEWSLETTER INLINE */
+    .inline-sub {
+      background: #fff;
+      border: 2px dashed rgba(124,58,237,0.3);
+      border-radius: 20px;
+      padding: 36px;
+      max-width: 600px;
+      margin: 48px auto 0;
+      text-align: center;
+    }
+    .inline-sub h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; color: var(--dark); }
+    .inline-sub p { color: var(--gray); font-size: 0.9rem; margin-bottom: 20px; }
+    .inline-sub-form { display: flex; gap: 10px; max-width: 400px; margin: 0 auto; }
+    .inline-sub-form input {
+      flex: 1; border: 1.5px solid rgba(124,58,237,0.3); border-radius: 10px;
+      padding: 12px 16px; font-size: 0.9rem; outline: none; color: var(--dark);
+    }
+    .inline-sub-form input:focus { border-color: var(--purple); }
+    .inline-sub-form button {
+      background: var(--gradient); color: #fff; border: none; border-radius: 10px;
+      padding: 12px 20px; font-weight: 700; cursor: pointer; white-space: nowrap;
+      transition: transform 0.2s;
+    }
+    .inline-sub-form button:hover { transform: translateY(-2px); }
+
+    /* FINAL CTA */
+    .final-cta {
+      padding: 80px 5%;
+      text-align: center;
+      background: #fff;
+    }
+    .final-cta-box {
+      background: var(--gradient);
+      border-radius: 28px;
+      padding: 64px 40px;
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta-box::before {
+      content: '';
+      position: absolute; top: -40%; right: -8%;
+      width: 500px; height: 500px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+    .final-cta-box::after {
+      content: '';
+      position: absolute; bottom: -30%; left: -5%;
+      width: 350px; height: 350px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+    }
+    .final-cta-box .emoji { font-size: 3rem; margin-bottom: 16px; position: relative; z-index: 1; }
+    .final-cta-box h2 { color: #fff; font-size: clamp(1.6rem, 3.5vw, 2.6rem); font-weight: 800; margin-bottom: 16px; position: relative; z-index: 1; line-height: 1.2; }
+    .final-cta-box p { color: rgba(255,255,255,0.82); font-size: 1.05rem; margin-bottom: 36px; line-height: 1.7; position: relative; z-index: 1; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .final-cta-box .btn-white {
+      display: inline-block; background: #fff; color: var(--purple);
+      padding: 17px 44px; border-radius: 50px; font-size: 1.05rem; font-weight: 700;
+      text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; position: relative; z-index: 1;
+    }
+    .final-cta-box .btn-white:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,0,0,0.25); }
+    .final-cta-perks {
+      display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
+      margin-top: 28px; position: relative; z-index: 1;
+    }
+    .perk {
+      display: flex; align-items: center; gap: 6px;
+      color: rgba(255,255,255,0.75); font-size: 0.85rem;
+    }
+    .perk::before { content: '✓'; font-weight: 700; color: rgba(255,255,255,0.9); }
+
+    /* ARTICLE MODAL */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(13,13,26,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 9000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: #fff;
+      border-radius: 24px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 40px;
+      position: relative;
+      transform: scale(0.92);
+      transition: transform 0.3s;
+    }
+    .modal-overlay.open .modal { transform: scale(1); }
+    .modal-close {
+      position: absolute; top: 16px; right: 20px;
+      background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray);
+    }
+    .modal-tag { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 16px; margin-bottom: 14px; }
+    .modal h2 { font-size: 1.7rem; font-weight: 800; color: var(--dark); margin-bottom: 16px; line-height: 1.3; }
+    .modal .modal-body { color: var(--gray); font-size: 0.95rem; line-height: 1.8; }
+    .modal .modal-body h4 { color: var(--dark); font-size: 1.05rem; font-weight: 700; margin: 20px 0 8px; }
+    .modal .modal-body ul { padding-left: 20px; margin: 10px 0; }
+    .modal .modal-body li { margin-bottom: 8px; }
+    .modal-cta { margin-top: 28px; text-align: center; }
+    .modal-cta a {
+      display: inline-block; background: var(--gradient); color: #fff;
+      padding: 14px 36px; border-radius: 50px; font-weight: 700; text-decoration: none; font-size: 0.95rem;
+      transition: transform 0.2s;
+    }
+    .modal-cta a:hover { transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { background: var(--dark); padding: 48px 5% 28px; border-top: 1px solid rgba(124,58,237,0.2); }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; margin-bottom: 40px; }
+    .footer-brand img { height: 40px; margin-bottom: 12px; }
+    .footer-brand p { color: rgba(255,255,255,0.45); font-size: 0.85rem; max-width: 240px; line-height: 1.6; }
+    .footer-links h4 { color: #fff; font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+    .footer-links ul { list-style: none; }
+    .footer-links li { margin-bottom: 10px; }
+    .footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--purple-light); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { color: rgba(255,255,255,0.3); font-size: 0.8rem; }
+    .footer-socials { display: flex; gap: 12px; }
+    .footer-socials a { width: 36px; height: 36px; background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.3); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; transition: background 0.2s; }
+    .footer-socials a:hover { background: var(--gradient); color: #fff; }
+
+    /* REVEAL ANIM */
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.7s, transform 0.7s; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* FLOAT BADGE */
+    .float-badge { position: fixed; bottom: 24px; left: 24px; background: var(--dark); border: 1px solid rgba(124,58,237,0.5); color: #fff; padding: 10px 18px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; z-index: 900; display: flex; align-items: center; gap: 8px; text-decoration: none; transition: background 0.2s; }
+    .float-badge:hover { background: var(--purple); }
+    .float-badge span { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; animation: pg 1.5s infinite; }
+    @keyframes pg { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
+
+    /* HAMBURGER */
+    .hamburger { display:none; flex-direction:column; justify-content:center; gap:5px; background:none; border:none; cursor:pointer; padding:6px; z-index:1001; }
+    .hamburger span { display:block; width:24px; height:2px; background:#fff; border-radius:2px; transition:transform 0.3s, opacity 0.3s; }
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+    @media(max-width:768px){
+      .hamburger{display:flex}
+      .nav-links{
+        display:flex; flex-direction:column;
+        position:fixed; top:70px; left:0; right:0;
+        background:rgba(13,13,26,0.98); backdrop-filter:blur(12px);
+        padding:24px 5% 32px; gap:4px;
+        border-bottom:1px solid rgba(124,58,237,0.3);
+        transform:translateY(-110%); transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);
+        z-index:998;
+      }
+      .nav-links.open{transform:translateY(0)}
+      .nav-links li a{display:block;padding:14px 0;font-size:1.05rem;border-bottom:1px solid rgba(255,255,255,0.07)}
+      .nav-cta{display:inline-block;margin-top:10px;text-align:center}
+      .featured-article{grid-template-columns:1fr}
+      .featured-visual{min-height:180px}
+      .featured-content{padding:24px}
+      .inline-sub-form{flex-direction:column}
+      .articles-grid{grid-template-columns:1fr}
+      .tips-grid{grid-template-columns:1fr 1fr}
+      .footer-top{flex-direction:column}
+      .float-badge{bottom:16px;left:12px;font-size:0.75rem;padding:9px 14px}
+    }
+    @media(max-width:480px){
+      .tips-grid{grid-template-columns:1fr}
+      .stats-row{gap:24px}
+      .blog-hero h1{font-size:2rem}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <img src="imagenes/logo.jpeg" alt="Pulso" />
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="servicios.html">Servicios</a></li>
+      <li><a href="servicios.html" class="nav-cta">Cotizar ahora</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- WELCOME BANNER -->
+  <div class="welcome-banner" id="welcomeBanner">
+    <p>¡Hola <strong id="welcomeName"></strong>! 👋 <span>Bienvenido/a al contenido exclusivo de Pulso. Todo esto es gratis para ti.</span></p>
+  </div>
+
+  <!-- BLOG HERO -->
+  <div class="blog-hero">
+    <div class="badge">📚 Contenido 100% Gratuito</div>
+    <h1>Aprende a hacer crecer<br /><span>tu negocio</span></h1>
+    <p>Guías prácticas, estrategias probadas y casos de éxito reales. Todo lo que necesitas para impulsar tu marca desde hoy.</p>
+  </div>
+
+  <!-- FEATURED ARTICLE -->
+  <section class="section" style="background:#fff;">
+    <div class="section-header reveal">
+      <div class="section-tag">Artículo destacado</div>
+      <h2>Lo más <span>popular</span> esta semana</h2>
+    </div>
+
+    <div class="featured-article reveal">
+      <div class="featured-visual"><span>📱</span></div>
+      <div class="featured-content">
+        <span class="art-tag">Redes Sociales</span>
+        <h3>5 estrategias de redes sociales que triplicaron las ventas de nuestros clientes en Pasto</h3>
+        <p>Descubre las técnicas exactas que usamos con marcas locales para multiplicar su alcance orgánico, atraer nuevos clientes y generar ventas sin gastar una fortuna en pauta publicitaria.</p>
+        <button class="read-more" onclick="openModal('featured')">Leer artículo completo →</button>
+      </div>
+    </div>
+
+    <!-- ARTICLES GRID -->
+    <div class="articles-grid">
+
+      <div class="article-card reveal">
+        <div class="art-thumb" style="background: linear-gradient(135deg,#7C3AED22,#2563EB22);">🎬</div>
+        <div class="art-body">
+          <span class="art-tag tag-purple">Contenido Visual</span>
+          <h3>Cómo crear videos que venden: la guía definitiva para pequeños negocios</h3>
+          <p>No necesitas un equipo de producción caro. Te mostramos cómo crear contenido audiovisual que convierte con lo que tienes ahora mismo.</p>
+          <div class="art-meta">
+            <span class="art-read">⏱ 5 min de lectura</span>
+            <button class="art-cta" onclick="openModal('video')">Leer más →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-card reveal">
+        <div class="art-thumb" style="background: linear-gradient(135deg,#2563EB22,#06B6D422);">📊</div>
+        <div class="art-body">
+          <span class="art-tag tag-blue">Publicidad Digital</span>
+          <h3>Meta Ads vs. Google Ads: ¿cuál funciona mejor para tu tipo de negocio?</h3>
+          <p>Comparativa honesta basada en campañas reales. Te ayudamos a decidir dónde invertir tu presupuesto publicitario para obtener el mayor retorno.</p>
+          <div class="art-meta">
+            <span class="art-read">⏱ 7 min de lectura</span>
+            <button class="art-cta" onclick="openModal('ads')">Leer más →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-card reveal">
+        <div class="art-thumb" style="background: linear-gradient(135deg,#10B98122,#3B82F622);">🤝</div>
+        <div class="art-body">
+          <span class="art-tag tag-green">Comunidad</span>
+          <h3>Community Management: cómo construir una comunidad fiel que compre una y otra vez</h3>
+          <p>Una comunidad comprometida vale más que miles de seguidores fríos. Aprende a cultivar relaciones reales que se traduzcan en ingresos.</p>
+          <div class="art-meta">
+            <span class="art-read">⏱ 6 min de lectura</span>
+            <button class="art-cta" onclick="openModal('community')">Leer más →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-card reveal">
+        <div class="art-thumb" style="background: linear-gradient(135deg,#F59E0B22,#EF444422);">🎯</div>
+        <div class="art-body">
+          <span class="art-tag tag-orange">Estrategia</span>
+          <h3>El embudo de ventas digital que usamos en Pulso y que puedes copiar hoy</h3>
+          <p>Revelamos nuestro proceso interno: cómo llevamos a un extraño a convertirse en cliente fiel paso a paso usando marketing digital.</p>
+          <div class="art-meta">
+            <span class="art-read">⏱ 8 min de lectura</span>
+            <button class="art-cta" onclick="openModal('funnel')">Leer más →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-card reveal">
+        <div class="art-thumb" style="background: linear-gradient(135deg,#8B5CF622,#EC489922);">✍️</div>
+        <div class="art-body">
+          <span class="art-tag tag-purple">Copywriting</span>
+          <h3>Cómo escribir textos que venden: copywriting para redes sociales sin ser experto</h3>
+          <p>Las palabras correctas pueden duplicar tus ventas. Te damos las fórmulas exactas que funcionan en Instagram, Facebook y WhatsApp.</p>
+          <div class="art-meta">
+            <span class="art-read">⏱ 4 min de lectura</span>
+            <button class="art-cta" onclick="openModal('copy')">Leer más →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-card reveal">
+        <div class="art-thumb" style="background: linear-gradient(135deg,#2563EB22,#7C3AED22);">📈</div>
+        <div class="art-body">
+          <span class="art-tag tag-blue">Métricas</span>
+          <h3>Las 7 métricas que realmente importan en tu negocio (y cómo mejorarlas)</h3>
+          <p>El 90% de los emprendedores miran los números equivocados. Descubre qué medir para tomar decisiones que realmente impulsen tu negocio.</p>
+          <div class="art-meta">
+            <span class="art-read">⏱ 6 min de lectura</span>
+            <button class="art-cta" onclick="openModal('metricas')">Leer más →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- INLINE SUBSCRIPTION -->
+    <div class="inline-sub reveal">
+      <h3>📩 Recibe artículos cada semana</h3>
+      <p>Únete a los emprendedores que reciben estrategias de marketing directo en su correo. Sin spam, solo valor.</p>
+      <form class="inline-sub-form" onsubmit="handleInlineSub(event)">
+        <input type="email" placeholder="Tu correo electrónico" required id="inlineEmail"/>
+        <button type="submit">Suscribirme</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- TIPS SECTION -->
+  <section class="tips-section">
+    <div class="section-header reveal">
+      <div class="section-tag">Tips rápidos</div>
+      <h2>10 acciones que puedes hacer <span>hoy mismo</span></h2>
+      <p>Pequeñas acciones con gran impacto. Empieza a implementar estas estrategias ahora mismo, sin costo adicional.</p>
+    </div>
+
+    <div class="tips-grid">
+      <div class="tip-card reveal">
+        <div class="tip-num">1</div>
+        <h4>Optimiza tu bio</h4>
+        <p>Tu bio de Instagram es tu tarjeta de presentación. Añade qué haces y cómo contactarte.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-num">2</div>
+        <h4>Publica en horario pico</h4>
+        <p>Estudia cuándo está activa tu audiencia. Generalmente entre 7-9am y 7-9pm.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-num">3</div>
+        <h4>Usa Reels semanalmente</h4>
+        <p>El algoritmo de Instagram prioriza el contenido en video. Mínimo 2 Reels por semana.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-num">4</div>
+        <h4>Responde en menos de 1 hora</h4>
+        <p>Los mensajes respondidos rápido generan hasta 3x más conversiones en ventas.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-num">5</div>
+        <h4>Muestra el detrás de cámaras</h4>
+        <p>El contenido auténtico genera más confianza y engagement que el contenido perfectamente editado.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-num">6</div>
+        <h4>Usa CTA claro en cada post</h4>
+        <p>Siempre dile a tu audiencia qué hacer: "Escríbenos", "Ve al link de la bio", "Comparte".</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-num">7</div>
+        <h4>Reutiliza tu contenido</h4>
+        <p>Un buen post de Instagram puede ser un story, un Reel y un video de TikTok. Maximiza cada contenido.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-num">8</div>
+        <h4>Colabora con otras marcas</h4>
+        <p>Los collabs con negocios complementarios duplican tu alcance sin costo adicional.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-num">9</div>
+        <h4>Hashtags estratégicos</h4>
+        <p>Mezcla hashtags grandes, medianos y locales. Los locales de Pasto te conectan con tu cliente ideal.</p>
+      </div>
+      <div class="tip-card reveal">
+        <div class="tip-num">10</div>
+        <h4>Analiza cada semana</h4>
+        <p>Revisa qué contenido funcionó mejor y replica la fórmula. Los datos no mienten.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS SECTION -->
+  <section class="stats-section">
+    <h2>Lo que el <span>marketing digital</span> puede hacer por ti</h2>
+    <p>Estos son resultados reales obtenidos con estrategias de marketing digital bien ejecutadas.</p>
+    <div class="stats-row">
+      <div class="s-stat"><div class="s-num">+320%</div><div class="s-label">Aumento promedio en alcance</div></div>
+      <div class="s-stat"><div class="s-num">+180%</div><div class="s-label">Crecimiento en ventas</div></div>
+      <div class="s-stat"><div class="s-num">5x</div><div class="s-label">Más engagement en contenido optimizado</div></div>
+      <div class="s-stat"><div class="s-num">-40%</div><div class="s-label">Reducción en costo por cliente</div></div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="final-cta-box reveal">
+      <div class="emoji">🚀</div>
+      <h2>¿Ya tienes el conocimiento?<br />Ahora es tiempo de actuar.</h2>
+      <p>En Pulso convertimos todo esto en resultados reales para tu negocio. Conoce nuestros planes, el equipo detrás de la agencia y únete a las marcas pastusas que ya están creciendo con nosotros.</p>
+      <a href="servicios.html" class="btn-white">Ver servicios y planes →</a>
+      <div class="final-cta-perks">
+        <span class="perk">Planes desde $650.000 COP</span>
+        <span class="perk">Equipo local</span>
+        <span class="perk">Resultados medibles</span>
+        <span class="perk">Sin contrato largo</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="imagenes/logo.jpeg" alt="Pulso" />
+        <p>Agencia de marketing digital con presencia en Pasto. Impulsamos marcas con creatividad y estrategia.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="blog.html">Blog Gratuito</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="servicios.html#equipo">Nuestro equipo</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="https://wa.me/573187532414">WhatsApp</a></li>
+          <li><a href="mailto:info@pulsomkt.com">info@pulsomkt.com</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Pulso Agencia de Marketing. Todos los derechos reservados.</p>
+      <div class="footer-socials">
+        <a href="#" title="Instagram">📸</a>
+        <a href="#" title="Facebook">📘</a>
+        <a href="#" title="WhatsApp">💬</a>
+        <a href="#" title="TikTok">🎵</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOAT BADGE -->
+  <a href="https://wa.me/573187532414" class="float-badge" target="_blank">
+    <span></span> Chatea con nosotros
+  </a>
+
+  <!-- MODALS -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="modal" id="modalContent">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    // Welcome banner
+    const name = localStorage.getItem('pulso_subscriber_name');
+    if (name) {
+      const banner = document.getElementById('welcomeBanner');
+      document.getElementById('welcomeName').textContent = name;
+      banner.style.display = 'block';
+    }
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+
+    // Inline sub
+    function handleInlineSub(e) {
+      e.preventDefault();
+      const email = document.getElementById('inlineEmail').value;
+      localStorage.setItem('pulso_subscriber_email', email);
+      e.target.innerHTML = '<p style="color:#7C3AED;font-weight:700">✅ ¡Suscrito con éxito! Te llegará contenido nuevo cada semana.</p>';
+    }
+
+    // Articles content
+    const articles = {
+      featured: {
+        tag: 'Redes Sociales', tagClass: 'tag-purple',
+        title: '5 estrategias de redes sociales que triplicaron las ventas de nuestros clientes en Pasto',
+        body: `
+          <h4>¿Por qué muchas marcas locales no venden en redes?</h4>
+          <p>El problema más común que vemos en Pasto es que las marcas publican contenido sin estrategia. Publican por publicar, sin un objetivo claro, sin conocer a su audiencia y sin medir resultados. Eso cambia hoy.</p>
+          <h4>Estrategia 1: Contenido que educa antes de vender</h4>
+          <p>El 80% de tu contenido debe educar, entretener o inspirar. Solo el 20% debe ser directamente comercial. Las marcas que aplican esta regla ven hasta 3x más conversiones porque generan confianza primero.</p>
+          <h4>Estrategia 2: Consistencia sobre perfección</h4>
+          <p>Publicar 5 veces por semana con contenido del 70% de calidad siempre vence a publicar una vez por semana con contenido perfecto. El algoritmo premia la consistencia.</p>
+          <h4>Estrategia 3: Historias de clientes reales</h4>
+          <p>Los testimonios en video de clientes satisfechos generan hasta 5x más interacciones y confianza que cualquier pieza publicitaria diseñada.</p>
+          <h4>Estrategia 4: Comunidad local primero</h4>
+          <p>Usa hashtags locales como #Pasto, #Nariño, #HechoEnPasto. Tu cliente ideal está aquí, no al otro lado del mundo. La proximidad genera confianza.</p>
+          <h4>Estrategia 5: Reels con valor real</h4>
+          <p>Los Reels educativos ("¿Sabías que...?", "3 errores que cometes en...") son el formato que más alcance orgánico genera actualmente en Instagram y Facebook.</p>
+        `
+      },
+      video: {
+        tag: 'Contenido Visual', tagClass: 'tag-purple',
+        title: 'Cómo crear videos que venden: la guía definitiva para pequeños negocios',
+        body: `
+          <h4>El video es el rey del contenido digital</h4>
+          <p>El 85% de los usuarios de internet consumen videos regularmente. Y lo mejor: no necesitas un estudio de grabación para crear contenido que venda.</p>
+          <h4>Lo que necesitas (y no es mucho)</h4>
+          <ul>
+            <li>Un smartphone con buena cámara (cualquier teléfono reciente sirve)</li>
+            <li>Buena iluminación natural (¡gratis!)</li>
+            <li>Un guión simple de 3 partes: gancho, valor, llamado a la acción</li>
+          </ul>
+          <h4>La fórmula del video que vende</h4>
+          <p><strong>Primeros 3 segundos:</strong> Gancho fuerte. Pregunta, afirmación impactante o situación identificable.<br/>
+          <strong>Siguientes 20-40 segundos:</strong> Entrega el valor prometido. Sé específico y práctico.<br/>
+          <strong>Últimos 5 segundos:</strong> CTA claro. "Escríbenos", "Visita nuestro perfil", "Agenda tu cita".</p>
+          <h4>Temas que siempre funcionan</h4>
+          <ul>
+            <li>Detrás de cámaras de tu proceso</li>
+            <li>Testimonios de clientes en video</li>
+            <li>"Antes y después" de tus resultados</li>
+            <li>Respuestas a preguntas frecuentes</li>
+            <li>Tutoriales rápidos relacionados con tu servicio</li>
+          </ul>
+        `
+      },
+      ads: {
+        tag: 'Publicidad Digital', tagClass: 'tag-blue',
+        title: 'Meta Ads vs. Google Ads: ¿cuál funciona mejor para tu negocio?',
+        body: `
+          <h4>La diferencia fundamental</h4>
+          <p><strong>Meta Ads (Facebook/Instagram):</strong> Llegas a personas por quiénes son (demografía, intereses, comportamientos). Ideal para crear demanda.<br/>
+          <strong>Google Ads:</strong> Llegas a personas por lo que buscan activamente. Ideal para capturar demanda existente.</p>
+          <h4>¿Cuándo usar Meta Ads?</h4>
+          <ul>
+            <li>Productos o servicios que la gente no busca activamente pero necesita</li>
+            <li>Cuando quieres construir reconocimiento de marca</li>
+            <li>Productos visuales (ropa, comida, decoración)</li>
+            <li>Presupuestos más bajos (desde $150.000 COP/mes)</li>
+          </ul>
+          <h4>¿Cuándo usar Google Ads?</h4>
+          <ul>
+            <li>Servicios que la gente busca activamente ("fontanero en Pasto", "restaurante cerca")</li>
+            <li>Mayor intención de compra inmediata</li>
+            <li>Negocios locales que quieren aparecer en el mapa</li>
+          </ul>
+          <h4>Nuestra recomendación</h4>
+          <p>Para la mayoría de marcas locales en Pasto, empezar con Meta Ads es la decisión más inteligente por su segmentación local y costos accesibles. Con $300.000 COP al mes bien invertidos, puedes alcanzar miles de personas de tu ciudad.</p>
+        `
+      },
+      community: {
+        tag: 'Comunidad', tagClass: 'tag-green',
+        title: 'Community Management: construye una comunidad que compre una y otra vez',
+        body: `
+          <h4>¿Qué es realmente el Community Management?</h4>
+          <p>No es solo publicar contenido. Es construir relaciones. Un buen Community Manager es el puente entre tu marca y tus clientes potenciales, respondiendo, generando conversaciones y creando un sentido de pertenencia.</p>
+          <h4>Los pilares de una comunidad sólida</h4>
+          <ul>
+            <li><strong>Respuesta rápida:</strong> Responde todos los comentarios y mensajes en menos de 2 horas.</li>
+            <li><strong>Tono de voz consistente:</strong> Tu marca debe sonar igual en todos los canales.</li>
+            <li><strong>Contenido de valor:</strong> No todo es venta. Educa, entretiene, inspira.</li>
+            <li><strong>Escucha activa:</strong> Presta atención a lo que pide tu comunidad y adáptate.</li>
+          </ul>
+          <h4>El error más costoso</h4>
+          <p>Ignorar comentarios negativos. Un comentario negativo bien gestionado puede convertir a un cliente insatisfecho en uno fiel. La transparencia genera confianza.</p>
+          <h4>Métricas que importan en Community Management</h4>
+          <ul>
+            <li>Tasa de respuesta y tiempo promedio de respuesta</li>
+            <li>Engagement rate (comentarios + likes + guardados / seguidores)</li>
+            <li>Crecimiento mensual de seguidores orgánicos</li>
+            <li>Conversaciones iniciadas por usuarios</li>
+          </ul>
+        `
+      },
+      funnel: {
+        tag: 'Estrategia', tagClass: 'tag-orange',
+        title: 'El embudo de ventas digital que usamos en Pulso',
+        body: `
+          <h4>¿Qué es un embudo de ventas?</h4>
+          <p>Es el recorrido que hace un desconocido hasta convertirse en cliente. La mayoría de los negocios locales no lo tienen definido, y eso les cuesta clientes todos los días.</p>
+          <h4>Las 4 etapas del embudo Pulso</h4>
+          <p><strong>1. ATRACCIÓN:</strong> Contenido orgánico (Reels, posts educativos, historias) + publicidad pagada. El objetivo es que personas de tu ciudad te descubran.</p>
+          <p><strong>2. INTERÉS:</strong> Contenido que demuestra tu expertise y los resultados que obtienes. Casos de éxito, testimonios, antes y después.</p>
+          <p><strong>3. DECISIÓN:</strong> Oferta clara, precios transparentes, garantías y facilidad para contactarte. Aquí muchos negocios pierden clientes por no tener esta etapa clara.</p>
+          <p><strong>4. ACCIÓN:</strong> El proceso de compra o contratación debe ser lo más simple posible. Un mensaje de WhatsApp, un formulario fácil, una llamada.</p>
+          <h4>El secreto: postventa</h4>
+          <p>El cliente que ya te compró es tu mejor activo. Un cliente satisfecho te trae 3 clientes nuevos. Cuida la experiencia después de la venta tanto como antes.</p>
+        `
+      },
+      copy: {
+        tag: 'Copywriting', tagClass: 'tag-purple',
+        title: 'Cómo escribir textos que venden en redes sociales',
+        body: `
+          <h4>El copywriting no es magia, es una fórmula</h4>
+          <p>Las palabras correctas pueden duplicar tus ventas sin cambiar nada más. Aquí te damos las fórmulas que usamos con nuestros clientes.</p>
+          <h4>Fórmula PAS (Problema-Agitación-Solución)</h4>
+          <p><strong>Problema:</strong> "¿Tus publicaciones no generan ventas?"<br/>
+          <strong>Agitación:</strong> "Cada día sin una estrategia clara es dinero que pierdes frente a tu competencia."<br/>
+          <strong>Solución:</strong> "En Pulso diseñamos tu estrategia de contenidos para que cada publicación trabaje por ti."</p>
+          <h4>Fórmula AIDA (Atención-Interés-Deseo-Acción)</h4>
+          <ul>
+            <li><strong>Atención:</strong> Titular impactante o pregunta directa</li>
+            <li><strong>Interés:</strong> Dato sorprendente o historia identificable</li>
+            <li><strong>Deseo:</strong> Beneficios concretos, no características</li>
+            <li><strong>Acción:</strong> CTA específico y con urgencia</li>
+          </ul>
+          <h4>Regla de oro</h4>
+          <p>Habla siempre de beneficios, no de características. No digas "hacemos videos en 4K". Di "tus clientes verán tu negocio como el profesional que eres".</p>
+        `
+      },
+      metricas: {
+        tag: 'Métricas', tagClass: 'tag-blue',
+        title: 'Las 7 métricas que realmente importan para tu negocio',
+        body: `
+          <h4>Mide lo que importa</h4>
+          <p>Los "me gusta" son vanidad. Las ventas son sanidad. Estas son las métricas que debes monitorear cada semana.</p>
+          <h4>Las 7 métricas esenciales</h4>
+          <ul>
+            <li><strong>1. Costo por lead (CPL):</strong> ¿Cuánto te cuesta conseguir un contacto interesado?</li>
+            <li><strong>2. Tasa de conversión:</strong> De cada 100 personas que ven tu oferta, ¿cuántas compran?</li>
+            <li><strong>3. Retorno sobre inversión (ROI):</strong> Por cada peso invertido en marketing, ¿cuánto recuperas?</li>
+            <li><strong>4. Alcance orgánico:</strong> ¿A cuántas personas llegas sin pagar?</li>
+            <li><strong>5. Engagement rate:</strong> ¿Qué porcentaje de tu audiencia interactúa con tu contenido?</li>
+            <li><strong>6. Valor del cliente de por vida (LTV):</strong> ¿Cuánto gasta un cliente contigo a lo largo del tiempo?</li>
+            <li><strong>7. Costo de adquisición de cliente (CAC):</strong> ¿Cuánto te cuesta conseguir un cliente nuevo?</li>
+          </ul>
+          <h4>La regla más importante</h4>
+          <p>Tu LTV siempre debe ser mayor a tu CAC. Si conseguir un cliente te cuesta más de lo que ese cliente te genera, tu negocio no es sostenible. Esto es lo primero que analizamos con cada nuevo cliente en Pulso.</p>
+        `
+      }
+    };
+
+    function openModal(key) {
+      const art = articles[key];
+      if (!art) return;
+      document.getElementById('modalBody').innerHTML = `
+        <span class="modal-tag ${art.tagClass}">${art.tag}</span>
+        <h2>${art.title}</h2>
+        <div class="modal-body">${art.body}</div>
+        <div class="modal-cta">
+          <a href="servicios.html">¿Listo para aplicar esto con Pulso? Ver nuestros planes →</a>
+        </div>
+      `;
+      document.getElementById('modalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function closeModalOutside(e) {
+      if (e.target === document.getElementById('modalOverlay')) closeModal();
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  function toggleMenu() {
+    document.getElementById('hamburger').classList.toggle('open');
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('hamburger').classList.remove('open');
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+  </script>
+</body>
+</html>
