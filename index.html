@@ -567,6 +567,40 @@
       color: #fff;
     }
 
+    /* ===================== TEAM INDEX ===================== */
+    .team-section-idx { padding: 80px 5%; background: #fff; }
+    .team-grid-idx { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; max-width: 1050px; margin: 0 auto; }
+    .team-card-idx { text-align: center; background: var(--gray-light); border-radius: 22px; padding: 32px 20px 28px; border: 1px solid rgba(124,58,237,0.1); transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; }
+    .team-card-idx:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(124,58,237,0.15); border-color: rgba(124,58,237,0.3); }
+    .team-photo-idx { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; margin: 0 auto 18px; display: block; box-shadow: 0 0 0 3px rgba(124,58,237,0.3); }
+    .team-card-idx h3 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .role-idx { font-size: 0.82rem; font-weight: 600; color: var(--purple); margin-bottom: 10px; display: block; }
+    .team-card-idx p { color: var(--gray); font-size: 0.83rem; line-height: 1.6; }
+
+    /* ===================== BRANDS INDEX ===================== */
+    .brands-section-idx { padding: 72px 5%; background: var(--gray-light); }
+    .brands-grid-idx { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+    .brand-card-idx { background: #fff; border-radius: 18px; padding: 28px 24px; border: 1px solid rgba(124,58,237,0.1); transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; display: flex; flex-direction: column; gap: 12px; }
+    .brand-card-idx:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(124,58,237,0.12); border-color: rgba(124,58,237,0.3); }
+    .brand-logo-area-idx { display: flex; align-items: center; gap: 16px; }
+    .brand-icon-idx { width: 52px; height: 52px; background: var(--gradient); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+    .brand-logo-area-idx h3 { font-size: 1.1rem; font-weight: 800; color: var(--dark); }
+    .brand-logo-area-idx span { font-size: 0.78rem; color: var(--gray); }
+    .brand-card-idx p { color: var(--gray); font-size: 0.88rem; line-height: 1.65; }
+    .brand-result-idx { display: flex; align-items: center; gap: 8px; background: rgba(124,58,237,0.07); border-radius: 10px; padding: 10px 14px; }
+    .brand-result-idx .metric { font-size: 1.1rem; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .brand-result-idx .metric-label { font-size: 0.8rem; color: var(--gray); }
+
+    @media(max-width:768px) {
+      .team-grid-idx { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .brands-grid-idx { grid-template-columns: 1fr; gap: 18px; }
+    }
+    @media(max-width:480px) {
+      .team-grid-idx { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .team-photo-idx { width: 88px; height: 88px; }
+      .team-card-idx { padding: 24px 14px 20px; }
+    }
+
     /* ===================== ANIMATIONS ===================== */
     @keyframes fade-up {
       from { opacity: 0; transform: translateY(30px); }
@@ -773,8 +807,9 @@
     <div class="hero-badge">⚡ Agencia de Marketing Digital</div>
 
     <h1>
-      Lleva tu marca al<br />
-      <span>siguiente nivel</span>
+      La mejor agencia de<br />
+      <span>marketing digital</span><br />
+      para tu marca en Pasto
     </h1>
 
     <p class="hero-sub">
@@ -805,6 +840,119 @@
     </div>
   </section>
 
+  <!-- TEAM -->
+  <section class="team-section-idx">
+    <div class="section-header reveal">
+      <div class="section-tag">Nuestro equipo</div>
+      <h2>Las personas detrás de <span>Pulso</span></h2>
+      <p>Un equipo joven, apasionado y con experiencia real. Somos tus aliados estratégicos en el mundo digital.</p>
+    </div>
+    <div class="team-grid-idx">
+      <div class="team-card-idx reveal">
+        <img src="imagenes/cristian.jpeg" alt="Cristian" class="team-photo-idx" />
+        <h3>Cristian</h3>
+        <span class="role-idx">CEO & Director Creativo</span>
+        <p>Estratega digital con visión de marca. Lidera los proyectos con enfoque en resultados medibles y creatividad sin límites.</p>
+      </div>
+      <div class="team-card-idx reveal">
+        <img src="imagenes/nathalia.jpeg" alt="Nathalia" class="team-photo-idx" />
+        <h3>Nathalia</h3>
+        <span class="role-idx">Directora de Marketing Digital</span>
+        <p>Experta en campañas de performance y estrategia de contenidos. Especialista en Meta Ads y crecimiento orgánico.</p>
+      </div>
+      <div class="team-card-idx reveal">
+        <img src="imagenes/samuel.jpeg" alt="Samuel" class="team-photo-idx" />
+        <h3>Samuel</h3>
+        <span class="role-idx">Editor & Productor Audiovisual</span>
+        <p>Detrás de cada video está su ojo creativo. Produce contenido audiovisual que conecta marcas con personas.</p>
+      </div>
+      <div class="team-card-idx reveal">
+        <img src="imagenes/vanessa.jpeg" alt="Vanessa" class="team-photo-idx" />
+        <h3>Vanessa</h3>
+        <span class="role-idx">Community Manager Senior</span>
+        <p>Gestiona la voz de las marcas en redes sociales. Construye comunidades auténticas y comprometidas.</p>
+      </div>
+      <div class="team-card-idx reveal">
+        <img src="imagenes/juliana.jpeg" alt="Juliana" class="team-photo-idx" />
+        <h3>Juliana</h3>
+        <span class="role-idx">Gestora de Campañas y Estrategia</span>
+        <p>Planifica y ejecuta campañas publicitarias con foco en el máximo retorno para cada cliente.</p>
+      </div>
+      <div class="team-card-idx reveal">
+        <img src="imagenes/adrian.jpeg" alt="Adrián" class="team-photo-idx" />
+        <h3>Adrián</h3>
+        <span class="role-idx">Diseñador Gráfico & Creatividad Visual</span>
+        <p>Da vida a cada marca con identidad visual poderosa. Transforma ideas en piezas que impactan y conectan.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANDS -->
+  <section class="brands-section-idx">
+    <div class="section-header reveal">
+      <div class="section-tag">Clientes & resultados</div>
+      <h2>Marcas pastusas que ya <span>crecen con Pulso</span></h2>
+      <p>Hemos trabajado con marcas locales de Pasto ayudándolas a crecer su presencia digital y aumentar sus ventas.</p>
+    </div>
+    <div class="brands-grid-idx">
+      <div class="brand-card-idx reveal">
+        <div class="brand-logo-area-idx">
+          <div class="brand-icon-idx">🥩</div>
+          <div><h3>RAG</h3><span>Gastronomía · Pasto</span></div>
+        </div>
+        <p>Estrategia de redes sociales y producción de contenido para posicionar la marca en el mercado gastronómico nariñense.</p>
+        <div class="brand-result-idx">
+          <span class="metric">+280%</span>
+          <span class="metric-label">de alcance en 3 meses</span>
+        </div>
+      </div>
+      <div class="brand-card-idx reveal">
+        <div class="brand-logo-area-idx">
+          <div class="brand-icon-idx">🍗</div>
+          <div><h3>Mister Pollo</h3><span>Restaurantes · Pasto</span></div>
+        </div>
+        <p>Campañas de publicidad digital y community management que dispararon las ventas en temporadas clave como Carnaval y Navidad.</p>
+        <div class="brand-result-idx">
+          <span class="metric">+150%</span>
+          <span class="metric-label">en ventas durante temporadas</span>
+        </div>
+      </div>
+      <div class="brand-card-idx reveal">
+        <div class="brand-logo-area-idx">
+          <div class="brand-icon-idx">👗</div>
+          <div><h3>By Trend</h3><span>Moda & Lifestyle · Pasto</span></div>
+        </div>
+        <p>Producción audiovisual y contenido para redes que transformó la imagen de marca y atrajo un público más joven y fiel.</p>
+        <div class="brand-result-idx">
+          <span class="metric">+400%</span>
+          <span class="metric-label">crecimiento en Instagram</span>
+        </div>
+      </div>
+      <div class="brand-card-idx reveal">
+        <div class="brand-logo-area-idx">
+          <div class="brand-icon-idx">🏔️</div>
+          <div><h3>Hillside</h3><span>Sector Inmobiliario · Nariño</span></div>
+        </div>
+        <p>Estrategia digital integral con campañas en Meta Ads para captación de leads cualificados en el sector inmobiliario regional.</p>
+        <div class="brand-result-idx">
+          <span class="metric">3x</span>
+          <span class="metric-label">más leads en 60 días</span>
+        </div>
+      </div>
+      <div class="brand-card-idx reveal">
+        <div class="brand-logo-area-idx">
+          <div class="brand-icon-idx">☕</div>
+          <div><h3>La Merced</h3><span>Café & Gastronomía · Pasto</span></div>
+        </div>
+        <p>Rebranding digital, contenido editorial y campañas de fidelización que consolidaron a La Merced como referente local.</p>
+        <div class="brand-result-idx">
+          <span class="metric">+95%</span>
+          <span class="metric-label">retención de clientes</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- STATS -->
   <div class="stats-bar">
     <div class="stat-item">
@@ -824,48 +972,6 @@
       <div class="stat-label">Clientes satisfechos</div>
     </div>
   </div>
-
-  <!-- SERVICES PREVIEW -->
-  <section class="section" style="background: #fff;">
-    <div class="section-header reveal">
-      <div class="section-tag">Nuestros servicios</div>
-      <h2>Todo lo que tu marca <span>necesita</span></h2>
-      <p>Desde contenido visual hasta campañas publicitarias, tenemos la solución perfecta para cada etapa de tu negocio.</p>
-    </div>
-
-    <div class="services-grid">
-      <div class="service-card reveal">
-        <div class="service-icon">🎬</div>
-        <h3>Producción Audiovisual</h3>
-        <p>Videos profesionales que capturan la esencia de tu marca. Reels, spots, contenido para redes y más.</p>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon">📱</div>
-        <h3>Community Manager</h3>
-        <p>Gestión integral de tus redes sociales. Creamos contenido, respondemos mensajes y crecemos tu comunidad.</p>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon">📅</div>
-        <h3>Campañas Mensuales</h3>
-        <p>Planificación y ejecución de campañas digitales mes a mes con reportes detallados de resultados.</p>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon">🚀</div>
-        <h3>Campañas Individuales</h3>
-        <p>Campañas puntuales para lanzamientos, eventos o temporadas. Máximo impacto en el momento justo.</p>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon">🎁</div>
-        <h3>Bonos Extras</h3>
-        <p>Contenido adicional estratégico para acelerar tu crecimiento en momentos clave del año.</p>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon">💥</div>
-        <h3>Promo 2x1</h3>
-        <p>Obtén dos servicios por el precio de uno. La oferta especial para marcas que quieren crecer rápido.</p>
-      </div>
-    </div>
-  </section>
 
   <!-- WHY SECTION -->
   <section class="why-section">
@@ -899,14 +1005,6 @@
     </div>
   </section>
 
-  <!-- CTA SECTION -->
-  <section class="cta-section">
-    <div class="cta-box reveal">
-      <h2>¿Listo para aprender cómo hacemos crecer marcas?</h2>
-      <p>Antes de ser nuestro cliente, queremos darte valor. Accede a nuestro blog con guías, casos de éxito y estrategias gratuitas.</p>
-      <a href="blog.html" class="cta-btn" id="blogCta">Ver contenido educativo gratuito →</a>
-    </div>
-  </section>
 
   <!-- FOOTER -->
   <footer>

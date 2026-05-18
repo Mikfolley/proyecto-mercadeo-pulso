@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -298,6 +298,19 @@
     }
     .perk::before { content: '✓'; font-weight: 700; color: rgba(255,255,255,0.9); }
 
+    /* ARTICLE CALLOUT */
+    .art-callout {
+      display: inline-block;
+      background: rgba(124,58,237,0.08);
+      color: var(--purple);
+      font-size: 0.76rem;
+      font-weight: 700;
+      border-radius: 8px;
+      padding: 4px 10px;
+      margin-bottom: 8px;
+      border-left: 3px solid var(--purple);
+    }
+
     /* ARTICLE MODAL */
     .modal-overlay {
       position: fixed; inset: 0;
@@ -505,14 +518,14 @@
   <section class="section" style="background:#fff;">
     <div class="section-header reveal">
       <div class="section-tag">Artículo destacado</div>
-      <h2>Lo más <span>popular</span> esta semana</h2>
+      <h2>Casos de éxito de <span>marketing digital</span> en Pasto</h2>
     </div>
 
     <div class="featured-article reveal">
       <div class="featured-visual"><span>📱</span></div>
       <div class="featured-content">
         <span class="art-tag">Redes Sociales</span>
-        <h3>5 estrategias de redes sociales que triplicaron las ventas de nuestros clientes en Pasto</h3>
+        <h3>3 estrategias de redes sociales que multiplicaron las ventas de nuestros clientes</h3>
         <p>Descubre las técnicas exactas que usamos con marcas locales para multiplicar su alcance orgánico, atraer nuevos clientes y generar ventas sin gastar una fortuna en pauta publicitaria.</p>
         <button class="read-more" onclick="openModal('featured')">Leer artículo completo →</button>
       </div>
@@ -525,6 +538,7 @@
         <div class="art-thumb" style="background: linear-gradient(135deg,#7C3AED22,#2563EB22);">🎬</div>
         <div class="art-body">
           <span class="art-tag tag-purple">Contenido Visual</span>
+          <div class="art-callout">🔥 El secreto que usan marcas con miles de ventas</div>
           <h3>Cómo crear videos que venden: la guía definitiva para pequeños negocios</h3>
           <p>No necesitas un equipo de producción caro. Te mostramos cómo crear contenido audiovisual que convierte con lo que tienes ahora mismo.</p>
           <div class="art-meta">
@@ -538,6 +552,7 @@
         <div class="art-thumb" style="background: linear-gradient(135deg,#2563EB22,#06B6D422);">📊</div>
         <div class="art-body">
           <span class="art-tag tag-blue">Publicidad Digital</span>
+          <div class="art-callout">⚡ Deja de desperdiciar tu presupuesto publicitario</div>
           <h3>Meta Ads vs. Google Ads: ¿cuál funciona mejor para tu tipo de negocio?</h3>
           <p>Comparativa honesta basada en campañas reales. Te ayudamos a decidir dónde invertir tu presupuesto publicitario para obtener el mayor retorno.</p>
           <div class="art-meta">
@@ -551,6 +566,7 @@
         <div class="art-thumb" style="background: linear-gradient(135deg,#10B98122,#3B82F622);">🤝</div>
         <div class="art-body">
           <span class="art-tag tag-green">Comunidad</span>
+          <div class="art-callout">💬 Una comunidad vale más que 10.000 seguidores fríos</div>
           <h3>Community Management: cómo construir una comunidad fiel que compre una y otra vez</h3>
           <p>Una comunidad comprometida vale más que miles de seguidores fríos. Aprende a cultivar relaciones reales que se traduzcan en ingresos.</p>
           <div class="art-meta">
@@ -564,6 +580,7 @@
         <div class="art-thumb" style="background: linear-gradient(135deg,#F59E0B22,#EF444422);">🎯</div>
         <div class="art-body">
           <span class="art-tag tag-orange">Estrategia</span>
+          <div class="art-callout">🎯 Cópialo hoy y empieza a vender más desde mañana</div>
           <h3>El embudo de ventas digital que usamos en Pulso y que puedes copiar hoy</h3>
           <p>Revelamos nuestro proceso interno: cómo llevamos a un extraño a convertirse en cliente fiel paso a paso usando marketing digital.</p>
           <div class="art-meta">
@@ -577,6 +594,7 @@
         <div class="art-thumb" style="background: linear-gradient(135deg,#8B5CF622,#EC489922);">✍️</div>
         <div class="art-body">
           <span class="art-tag tag-purple">Copywriting</span>
+          <div class="art-callout">✍️ Las palabras correctas pueden duplicar tus ventas</div>
           <h3>Cómo escribir textos que venden: copywriting para redes sociales sin ser experto</h3>
           <p>Las palabras correctas pueden duplicar tus ventas. Te damos las fórmulas exactas que funcionan en Instagram, Facebook y WhatsApp.</p>
           <div class="art-meta">
@@ -609,96 +627,6 @@
         <input type="email" placeholder="Tu correo electrónico" required id="inlineEmail"/>
         <button type="submit">Suscribirme</button>
       </form>
-    </div>
-  </section>
-
-  <!-- TIPS SECTION -->
-  <section class="tips-section">
-    <div class="section-header reveal">
-      <div class="section-tag">Tips rápidos</div>
-      <h2>10 acciones que puedes hacer <span>hoy mismo</span></h2>
-      <p>Pequeñas acciones con gran impacto. Empieza a implementar estas estrategias ahora mismo, sin costo adicional.</p>
-    </div>
-
-    <div class="tips-grid">
-      <div class="tip-card reveal">
-        <div class="tip-num">1</div>
-        <h4>Optimiza tu bio</h4>
-        <p>Tu bio de Instagram es tu tarjeta de presentación. Añade qué haces y cómo contactarte.</p>
-      </div>
-      <div class="tip-card reveal">
-        <div class="tip-num">2</div>
-        <h4>Publica en horario pico</h4>
-        <p>Estudia cuándo está activa tu audiencia. Generalmente entre 7-9am y 7-9pm.</p>
-      </div>
-      <div class="tip-card reveal">
-        <div class="tip-num">3</div>
-        <h4>Usa Reels semanalmente</h4>
-        <p>El algoritmo de Instagram prioriza el contenido en video. Mínimo 2 Reels por semana.</p>
-      </div>
-      <div class="tip-card reveal">
-        <div class="tip-num">4</div>
-        <h4>Responde en menos de 1 hora</h4>
-        <p>Los mensajes respondidos rápido generan hasta 3x más conversiones en ventas.</p>
-      </div>
-      <div class="tip-card reveal">
-        <div class="tip-num">5</div>
-        <h4>Muestra el detrás de cámaras</h4>
-        <p>El contenido auténtico genera más confianza y engagement que el contenido perfectamente editado.</p>
-      </div>
-      <div class="tip-card reveal">
-        <div class="tip-num">6</div>
-        <h4>Usa CTA claro en cada post</h4>
-        <p>Siempre dile a tu audiencia qué hacer: "Escríbenos", "Ve al link de la bio", "Comparte".</p>
-      </div>
-      <div class="tip-card reveal">
-        <div class="tip-num">7</div>
-        <h4>Reutiliza tu contenido</h4>
-        <p>Un buen post de Instagram puede ser un story, un Reel y un video de TikTok. Maximiza cada contenido.</p>
-      </div>
-      <div class="tip-card reveal">
-        <div class="tip-num">8</div>
-        <h4>Colabora con otras marcas</h4>
-        <p>Los collabs con negocios complementarios duplican tu alcance sin costo adicional.</p>
-      </div>
-      <div class="tip-card reveal">
-        <div class="tip-num">9</div>
-        <h4>Hashtags estratégicos</h4>
-        <p>Mezcla hashtags grandes, medianos y locales. Los locales de Pasto te conectan con tu cliente ideal.</p>
-      </div>
-      <div class="tip-card reveal">
-        <div class="tip-num">10</div>
-        <h4>Analiza cada semana</h4>
-        <p>Revisa qué contenido funcionó mejor y replica la fórmula. Los datos no mienten.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- STATS SECTION -->
-  <section class="stats-section">
-    <h2>Lo que el <span>marketing digital</span> puede hacer por ti</h2>
-    <p>Estos son resultados reales obtenidos con estrategias de marketing digital bien ejecutadas.</p>
-    <div class="stats-row">
-      <div class="s-stat"><div class="s-num">+320%</div><div class="s-label">Aumento promedio en alcance</div></div>
-      <div class="s-stat"><div class="s-num">+180%</div><div class="s-label">Crecimiento en ventas</div></div>
-      <div class="s-stat"><div class="s-num">5x</div><div class="s-label">Más engagement en contenido optimizado</div></div>
-      <div class="s-stat"><div class="s-num">-40%</div><div class="s-label">Reducción en costo por cliente</div></div>
-    </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section class="final-cta">
-    <div class="final-cta-box reveal">
-      <div class="emoji">🚀</div>
-      <h2>¿Ya tienes el conocimiento?<br />Ahora es tiempo de actuar.</h2>
-      <p>En Pulso convertimos todo esto en resultados reales para tu negocio. Conoce nuestros planes, el equipo detrás de la agencia y únete a las marcas pastusas que ya están creciendo con nosotros.</p>
-      <a href="servicios.html" class="btn-white">Ver servicios y planes →</a>
-      <div class="final-cta-perks">
-        <span class="perk">Planes desde $650.000 COP</span>
-        <span class="perk">Equipo local</span>
-        <span class="perk">Resultados medibles</span>
-        <span class="perk">Sin contrato largo</span>
-      </div>
     </div>
   </section>
 
