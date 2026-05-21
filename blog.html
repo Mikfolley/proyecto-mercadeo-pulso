@@ -19,7 +19,23 @@
       --gradient: linear-gradient(135deg, #7C3AED 0%, #2563EB 100%);
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      background: var(--dark);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(124,58,237,0.5) #0D0D1A;
+    }
+    @media (min-width: 769px) {
+      ::-webkit-scrollbar { width: 6px; background: #0D0D1A; }
+      ::-webkit-scrollbar-track { background: #0D0D1A; }
+      ::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.55); border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: rgba(124,58,237,0.85); }
+    }
+    @media (max-width: 768px) {
+      html { scrollbar-width: none; }
+      ::-webkit-scrollbar { display: none; width: 0; }
+    }
     body {
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       background: var(--white);
