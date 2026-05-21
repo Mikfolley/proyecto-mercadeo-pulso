@@ -48,6 +48,8 @@
       background: var(--white);
       color: var(--dark);
       overflow-x: hidden;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
 
     /* ===================== NAV ===================== */
@@ -156,12 +158,13 @@
     }
 
     .hero h1 {
-      font-size: clamp(3rem, 7vw, 6rem);
+      font-size: clamp(1.9rem, 7vw, 6rem);
       font-weight: 800;
       color: #fff;
-      line-height: 1.1;
+      line-height: 1.15;
       margin-bottom: 24px;
       animation: fade-up 0.8s 0.15s ease both;
+      max-width: 100%;
     }
 
     .hero h1 span {
@@ -775,7 +778,7 @@
 
       /* HERO */
       .hero { padding: 90px 5% 48px; }
-      .hero-sub { margin-bottom: 32px; font-size: 0.97rem; }
+      .hero-sub { margin-bottom: 32px; font-size: 0.97rem; max-width: 100%; }
 
       /* SUBS BOX */
       .subs-box { padding: 28px 20px; max-width: 100%; }
@@ -811,8 +814,8 @@
       .subs-box h2 { font-size: 1.15rem; }
       .subs-benefits { flex-direction: column; align-items: flex-start; gap: 8px; }
       .why-grid { grid-template-columns: 1fr; }
-      .stats-bar { gap: 16px; }
-      .stat-item { min-width: 120px; }
+      .stats-bar { gap: 12px 20px; padding: 24px 4%; flex-wrap: wrap; }
+      .stat-item { min-width: 0; flex: 1 1 calc(50% - 10px); }
       .section { padding: 52px 4%; }
       .section-header { margin-bottom: 36px; }
       .cta-box { padding: 32px 18px; border-radius: 18px; }
@@ -823,9 +826,13 @@
     @media (max-width: 360px) {
       nav { padding: 0 4%; }
       .hero { padding: 76px 4% 36px; }
+      .hero h1 { font-size: 1.65rem; }
+      .hero-sub { font-size: 0.88rem; }
       .subs-box { padding: 18px 14px; }
       .subs-btn { font-size: 0.85rem; }
-      .stat-num { font-size: 1.6rem; }
+      .stat-num { font-size: 1.5rem; }
+      .stat-label { font-size: 0.75rem; }
+      .section-header h2 { font-size: 1.5rem; }
     }
 
     /* ===================== LANDBOT OVERFLOW FIX ===================== */
