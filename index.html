@@ -577,11 +577,52 @@
     }
 
     /* ===================== TEAM INDEX ===================== */
-    .team-section-idx { padding: 80px 5%; background: #fff; }
+    .team-section-idx { padding: 80px 5%; background: linear-gradient(180deg, #ffffff 0%, #fbf8ff 100%); }
     .team-grid-idx { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; max-width: 1050px; margin: 0 auto; }
     .team-card-idx { text-align: center; background: var(--gray-light); border-radius: 22px; padding: 32px 20px 28px; border: 1px solid rgba(124,58,237,0.1); transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; }
     .team-card-idx:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(124,58,237,0.15); border-color: rgba(124,58,237,0.3); }
-    .team-photo-idx { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; margin: 0 auto 18px; display: block; box-shadow: 0 0 0 3px rgba(124,58,237,0.3); }
+
+    /* Nuevo estilo para fotos del equipo: aro degradado y foto centrada */
+    /* Mostrar la imagen completa (no recortada) dentro de un marco con borde degradado */
+    .team-photo-wrap {
+      width: 220px;
+      margin: 0 auto 18px;
+      border-radius: 14px;
+      padding: 6px;
+      background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(37,99,235,0.12));
+      display: block;
+      box-shadow: 0 10px 28px rgba(16,24,40,0.06);
+      position: relative;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.06);
+      overflow: visible;
+    }
+    .team-photo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -10px;
+      border-radius: 16px;
+      background: radial-gradient(circle, rgba(124,58,237,0.08), transparent 40%);
+      z-index: -1;
+      filter: blur(6px);
+      opacity: 0.9;
+    }
+    .team-photo-wrap img.team-photo-idx {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border-radius: 10px;
+      display: block;
+      border: none;
+      box-shadow: 0 8px 18px rgba(16,24,40,0.06);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      background: #fff;
+    }
+    .team-card-idx:hover .team-photo-wrap img.team-photo-idx {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 44px rgba(16,24,40,0.12);
+    }
+
     .team-card-idx h3 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
     .role-idx { font-size: 0.82rem; font-weight: 600; color: var(--purple); margin-bottom: 10px; display: block; }
     .team-card-idx p { color: var(--gray); font-size: 0.83rem; line-height: 1.6; }
@@ -606,7 +647,8 @@
     }
     @media(max-width:480px) {
       .team-grid-idx { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-      .team-photo-idx { width: 88px; height: 88px; }
+      .team-photo-wrap { width: 160px; padding: 4px; }
+      .team-photo-wrap img.team-photo-idx { border-width: 0; }
       .team-card-idx { padding: 24px 14px 20px; }
     }
 
@@ -860,37 +902,49 @@
     </div>
     <div class="team-grid-idx">
       <div class="team-card-idx reveal">
-        <img src="imagenes/cristian.jpeg" alt="Cristian" class="team-photo-idx" />
+        <div class="team-photo-wrap">
+          <img src="imagenes/cristian-pulso.jpeg" alt="Cristian" class="team-photo-idx" />
+        </div>
         <h3>Cristian</h3>
         <span class="role-idx">CEO & Director Creativo</span>
         <p>Estratega digital con visión de marca. Lidera los proyectos con enfoque en resultados medibles y creatividad sin límites.</p>
       </div>
       <div class="team-card-idx reveal">
-        <img src="imagenes/nathalia.jpeg" alt="Nathalia" class="team-photo-idx" />
+        <div class="team-photo-wrap">
+          <img src="imagenes/nathalia-pulso.jpeg" alt="Nathalia" class="team-photo-idx" />
+        </div>
         <h3>Nathalia</h3>
         <span class="role-idx">Directora de Marketing Digital</span>
         <p>Experta en campañas de performance y estrategia de contenidos. Especialista en Meta Ads y crecimiento orgánico.</p>
       </div>
       <div class="team-card-idx reveal">
-        <img src="imagenes/samuel.jpeg" alt="Samuel" class="team-photo-idx" />
+        <div class="team-photo-wrap">
+          <img src="imagenes/samuel-pulso.jpeg" alt="Samuel" class="team-photo-idx" />
+        </div>
         <h3>Samuel</h3>
         <span class="role-idx">Editor & Productor Audiovisual</span>
         <p>Detrás de cada video está su ojo creativo. Produce contenido audiovisual que conecta marcas con personas.</p>
       </div>
       <div class="team-card-idx reveal">
-        <img src="imagenes/vanessa.jpeg" alt="Vanessa" class="team-photo-idx" />
+        <div class="team-photo-wrap">
+          <img src="imagenes/vanessa-pulso.jpeg" alt="Vanessa" class="team-photo-idx" />
+        </div>
         <h3>Vanessa</h3>
         <span class="role-idx">Community Manager Senior</span>
         <p>Gestiona la voz de las marcas en redes sociales. Construye comunidades auténticas y comprometidas.</p>
       </div>
       <div class="team-card-idx reveal">
-        <img src="imagenes/juliana.jpeg" alt="Juliana" class="team-photo-idx" />
+        <div class="team-photo-wrap">
+          <img src="imagenes/juliana-pulso.jpeg" alt="Juliana" class="team-photo-idx" />
+        </div>
         <h3>Juliana</h3>
         <span class="role-idx">Gestora de Campañas y Estrategia</span>
         <p>Planifica y ejecuta campañas publicitarias con foco en el máximo retorno para cada cliente.</p>
       </div>
       <div class="team-card-idx reveal">
-        <img src="imagenes/adrian.jpeg" alt="Adrián" class="team-photo-idx" />
+        <div class="team-photo-wrap">
+          <img src="imagenes/adrian-pulso.jpeg" alt="Adrián" class="team-photo-idx" />
+        </div>
         <h3>Adrián</h3>
         <span class="role-idx">Diseñador Gráfico & Creatividad Visual</span>
         <p>Da vida a cada marca con identidad visual poderosa. Transforma ideas en piezas que impactan y conectan.</p>
