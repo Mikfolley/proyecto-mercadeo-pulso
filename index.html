@@ -157,6 +157,159 @@
       animation: fade-up 0.8s 0.1s ease both;
     }
 
+    /* ===================== CUÑA RADIAL PLAYER ===================== */
+    .cuña-player {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(124,58,237,0.4);
+      border-radius: 20px;
+      padding: 16px 22px;
+      max-width: 460px;
+      width: 100%;
+      backdrop-filter: blur(10px);
+      margin: 0 0 24px;
+      position: relative;
+      z-index: 2;
+      animation: fade-up 0.8s 0.38s ease both;
+    }
+    .cuña-player::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 21px;
+      background: var(--gradient);
+      z-index: -1;
+      opacity: 0.25;
+    }
+    .cuña-icon {
+      width: 50px; height: 50px; min-width: 50px;
+      background: var(--gradient);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      position: relative;
+    }
+    .cuña-icon::after {
+      content: '';
+      position: absolute; inset: -5px;
+      border-radius: 18px;
+      background: var(--gradient);
+      opacity: 0.3;
+      animation: pulse-radio 2s ease infinite;
+      z-index: -1;
+    }
+    @keyframes pulse-radio {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.3); opacity: 0.08; }
+    }
+    .cuña-info { flex: 1; text-align: left; }
+    .cuña-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: 2px;
+    }
+    .cuña-title {
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+    .cuña-waves {
+      display: flex; align-items: center; gap: 3px; height: 18px;
+    }
+    .cuña-waves span {
+      display: block; width: 3px;
+      background: var(--gradient);
+      border-radius: 2px;
+      animation: wave-bar 1.2s ease-in-out infinite;
+    }
+    .cuña-waves.paused span { animation-play-state: paused; }
+    .cuña-waves span:nth-child(1) { height: 7px;  animation-delay: 0s; }
+    .cuña-waves span:nth-child(2) { height: 13px; animation-delay: 0.14s; }
+    .cuña-waves span:nth-child(3) { height: 17px; animation-delay: 0.28s; }
+    .cuña-waves span:nth-child(4) { height: 11px; animation-delay: 0.42s; }
+    .cuña-waves span:nth-child(5) { height: 15px; animation-delay: 0.56s; }
+    .cuña-waves span:nth-child(6) { height: 9px;  animation-delay: 0.7s; }
+    .cuña-waves span:nth-child(7) { height: 13px; animation-delay: 0.84s; }
+    @keyframes wave-bar {
+      0%, 100% { transform: scaleY(0.4); opacity: 0.5; }
+      50% { transform: scaleY(1); opacity: 1; }
+    }
+    .cuña-play-btn {
+      width: 42px; height: 42px; min-width: 42px;
+      background: var(--gradient);
+      border: none; border-radius: 50%;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; color: #fff;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cuña-play-btn:hover {
+      transform: scale(1.12);
+      box-shadow: 0 6px 20px rgba(124,58,237,0.55);
+    }
+
+    /* ===================== VIDEO SHOWCASE ===================== */
+    .video-showcase {
+      background: var(--dark);
+      padding: 80px 5%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .video-showcase::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(ellipse at 25% 50%, rgba(124,58,237,0.2) 0%, transparent 55%),
+        radial-gradient(ellipse at 75% 50%, rgba(37,99,235,0.18) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .video-showcase .section-header h2 { color: #fff; }
+    .video-showcase .section-header p { color: rgba(255,255,255,0.55); }
+    .video-frame {
+      position: relative;
+      max-width: 880px;
+      margin: 0 auto;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .video-frame::before {
+      content: '';
+      position: absolute; inset: -2px;
+      border-radius: 22px;
+      background: var(--gradient);
+      z-index: -1;
+      opacity: 0.55;
+    }
+    .video-frame video {
+      width: 100%; display: block;
+      border-radius: 18px;
+      background: #000;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+    }
+    .video-glow {
+      position: absolute;
+      bottom: -50px; left: 50%;
+      transform: translateX(-50%);
+      width: 55%; height: 90px;
+      background: var(--gradient);
+      filter: blur(45px);
+      opacity: 0.3;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    @media (max-width: 768px) {
+      .video-showcase { padding: 60px 4%; }
+      .cuña-player { max-width: 100%; }
+      .video-frame { border-radius: 12px; }
+      .video-frame video { border-radius: 10px; }
+    }
     .hero h1 {
       font-size: clamp(1.9rem, 7vw, 6rem);
       font-weight: 800;
@@ -925,6 +1078,21 @@
       Estrategias digitales que generan resultados reales. Impulsamos tu negocio con creatividad, datos y pasión por el marketing.
     </p>
 
+    <!-- CUÑA RADIAL -->
+    <div class="cuña-player" id="cuñaPlayer">
+      <div class="cuña-icon">📻</div>
+      <div class="cuña-info">
+        <div class="cuña-label">📡 En el Aire · Pulso FM</div>
+        <div class="cuña-title">Cuña Radial Pulso</div>
+        <div class="cuña-waves paused" id="cuñaWaves">
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <button class="cuña-play-btn" id="cuñaBtn" onclick="toggleCuña()" aria-label="Reproducir cuña radial">▶</button>
+    </div>
+    <audio id="cuñaAudio" src="imagenes/video-pulso.mp4" preload="none"></audio>
+
     <!-- SUBSCRIPTION BOX -->
     <div class="subs-box">
       <div class="subs-icon">🎯</div>
@@ -1094,6 +1262,19 @@
     </div>
   </div>
 
+  <!-- VIDEO PROMOCIONAL -->
+  <section class="video-showcase">
+    <div class="section-header reveal">
+      <div class="section-tag" style="color:var(--purple-light);border-color:rgba(168,85,247,0.4);background:rgba(124,58,237,0.1);">▶ Video Promocional</div>
+      <h2>Así <span>transformamos</span> marcas</h2>
+      <p>Mira en acción cómo Pulso convierte ideas en estrategias digitales que generan impacto real para tu negocio.</p>
+    </div>
+    <div class="video-frame reveal">
+      <video src="imagenes/videopromocional.MOV" controls preload="metadata" playsinline></video>
+      <div class="video-glow"></div>
+    </div>
+  </section>
+
   <!-- WHY SECTION -->
   <section class="why-section">
     <div class="section-header reveal">
@@ -1218,6 +1399,22 @@
       t.textContent = msg;
       t.classList.add('show');
       setTimeout(() => t.classList.remove('show'), 3500);
+    }
+
+    // Cuña radial player
+    function toggleCuña() {
+      const audio = document.getElementById('cuñaAudio');
+      const btn   = document.getElementById('cuñaBtn');
+      const waves = document.getElementById('cuñaWaves');
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = '⏸';
+        waves.classList.remove('paused');
+      } else {
+        audio.pause();
+        btn.textContent = '▶';
+        waves.classList.add('paused');
+      }
     }
 
     // Handle subscription
